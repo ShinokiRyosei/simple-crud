@@ -27,6 +27,13 @@ mongoose.connect(dbUrl, dbErr => {
     })
   })
 
+  app.get('/api/characters', (request, response) => {
+    Character.find({}, (err, characterArray) => {
+      if (err) response.status(500).send()
+      else response.status(200).send(characterArray)
+    })
+  })
+
   app.listen(port, err => { // localhost:3001にサーバー立つ
     if (err) throw new Error(err)
     else console.log(`listening on port ${port}`)
